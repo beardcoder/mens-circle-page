@@ -1,12 +1,10 @@
-[
-  {
-    "id": "site",
-    "siteTitle": "Männerkreis",
-    "tagline": "Weniger Fassade. Mehr Wahrheit. Mehr Verbindung.",
-    "region": "Raum Straubing · Geiselhöring · Niederbayern",
-    "contactEmail": "kontakt@example.de",
-    "whatsappUrl": "",
-    "operatorName": "Markus Sommer",
-    "operatorAddress": "Platzhalter Straße 1, 94315 Straubing"
-  }
-]
+{
+  "id": "site",
+  "siteTitle": "Männerkreis",
+  "tagline": "Weniger Fassade. Mehr Wahrheit. Mehr Verbindung.",
+  "region": "Raum Straubing · Geiselhöring · Niederbayern",
+  "contactEmail": "kontakt@example.de",
+  "whatsappUrl": "",
+  "operatorName": "Markus Sommer",
+  "operatorAddress": "Platzhalter Straße 1, 94315 Straubing"
+}

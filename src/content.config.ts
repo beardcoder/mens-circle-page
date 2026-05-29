@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 const events = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/events' }),
@@ -51,18 +51,4 @@ const testimonials = defineCollection({
   }),
 });
 
-const settings = defineCollection({
-  loader: file('./src/content/settings/site.json'),
-  schema: z.object({
-    id: z.string(),
-    siteTitle: z.string(),
-    tagline: z.string(),
-    region: z.string(),
-    contactEmail: z.string(),
-    whatsappUrl: z.string().optional(),
-    operatorName: z.string(),
-    operatorAddress: z.string(),
-  }),
-});
-
-export const collections = { events, blog, faq, testimonials, settings };
+export const collections = { events, blog, faq, testimonials };
