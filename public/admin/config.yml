@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: OWNER/REPO   # TODO: auf dein GitHub-Repo setzen
+  repo: beardcoder/mens-circle-page # TODO: auf dein GitHub-Repo setzen
   branch: main
   # OAuth läuft über einen separaten Cloudflare-Worker (sveltia-cms-auth).
   # Client ID/Secret werden DORT als Worker-Secrets hinterlegt, nicht hier.
@@ -21,14 +21,30 @@ collections:
       - { name: date, label: Datum/Beginn, widget: datetime }
       - { name: endTime, label: Ende, widget: datetime }
       - { name: locationName, label: Ort, widget: string }
-      - { name: addressNote, label: Adress-Hinweis, widget: string, required: false }
+      - {
+          name: addressNote,
+          label: Adress-Hinweis,
+          widget: string,
+          required: false,
+        }
       - { name: capacity, label: Kapazität, widget: number, value_type: int }
       - { name: donationHint, label: Beitrag, widget: string, required: false }
       - { name: theme, label: Thema, widget: string, required: false }
-      - { name: status, label: Status, widget: select, options: ["open", "closed", "cancelled"], default: "open" }
+      - {
+          name: status,
+          label: Status,
+          widget: select,
+          options: ["open", "closed", "cancelled"],
+          default: "open",
+        }
       - { name: registrationDeadline, label: Anmeldeschluss, widget: datetime }
       - { name: excerpt, label: Kurztext, widget: text }
-      - { name: agenda, label: Ablauf, widget: list, field: { name: item, label: Punkt, widget: string } }
+      - {
+          name: agenda,
+          label: Ablauf,
+          widget: list,
+          field: { name: item, label: Punkt, widget: string },
+        }
       - { name: body, label: Beschreibung, widget: markdown }
   - name: blog
     label: Impulse
@@ -50,7 +66,13 @@ collections:
     extension: md
     fields:
       - { name: question, label: Frage, widget: string }
-      - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 0 }
+      - {
+          name: order,
+          label: Reihenfolge,
+          widget: number,
+          value_type: int,
+          default: 0,
+        }
       - { name: body, label: Antwort, widget: markdown }
   - name: testimonials
     label: Testimonials
@@ -60,7 +82,13 @@ collections:
     fields:
       - { name: author, label: Name, widget: string }
       - { name: context, label: Kontext, widget: string, required: false }
-      - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 0 }
+      - {
+          name: order,
+          label: Reihenfolge,
+          widget: number,
+          value_type: int,
+          default: 0,
+        }
       - { name: body, label: Zitat, widget: markdown }
   - name: settings
     label: Einstellungen
@@ -74,6 +102,11 @@ collections:
           - { name: tagline, label: Claim, widget: string }
           - { name: region, label: Region, widget: string }
           - { name: contactEmail, label: Kontakt-E-Mail, widget: string }
-          - { name: whatsappUrl, label: WhatsApp-Link, widget: string, required: false }
+          - {
+              name: whatsappUrl,
+              label: WhatsApp-Link,
+              widget: string,
+              required: false,
+            }
           - { name: operatorName, label: Betreiber-Name, widget: string }
           - { name: operatorAddress, label: Betreiber-Adresse, widget: string }
