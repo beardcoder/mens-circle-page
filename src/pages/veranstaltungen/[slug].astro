@@ -20,7 +20,7 @@ const jsonLd = {
 ---
 <BaseLayout title={`${event.data.title} – Veranstaltung`} description={event.data.excerpt}>
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </Fragment>
   <article class="container prose">
     <p class="meta">{formatDateDe(event.data.date)} · {formatTimeDe(event.data.date)}–{event.data.endTime} Uhr</p>

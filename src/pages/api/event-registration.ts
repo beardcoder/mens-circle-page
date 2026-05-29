@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { getCollection } from 'astro:content';
 import { validateEventRegistration } from '../../lib/validation/event-registration';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
   const form = await request.formData();
   const slug = String(form.get('eventSlug') ?? '');
   const input = {
@@ -22,7 +23,7 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
   const event = events.find((e) => e.id === slug);
   if (!event) return redirect(`/veranstaltungen?regerror=1`, 303);
 
-  const db = (locals as any).runtime.env.DB as D1Database;
+  const db = env.DB;
   const countRow = await db.prepare(
     'SELECT COUNT(*) AS c FROM event_registrations WHERE event_slug = ?'
   ).bind(slug).first<{ c: number }>();

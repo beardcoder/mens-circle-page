@@ -30,7 +30,17 @@ bun run dev      # Entwicklung auf http://localhost:4321
 bun run build    # Produktions-Build nach dist/
 bun run preview  # Build lokal ansehen
 bun test         # Validierungs-Tests (bun:test)
+bun run check    # Astro/TypeScript-Typprüfung
+bun run cf-typegen  # Cloudflare-Typen aus wrangler.toml erzeugen
 ```
+
+> **Typprüfung & Cloudflare-Typen:** Die D1-Bindung wird über
+> `import { env } from "cloudflare:workers"` angesprochen. Die zugehörigen Typen
+> erzeugt `wrangler types` in `worker-configuration.d.ts` (per `.gitignore`
+> ausgenommen, da generiert und versionsabhängig). Nach einem frischen Clone
+> oder Änderungen an `wrangler.toml` einmal `bun run cf-typegen` ausführen,
+> damit `bun run check` fehlerfrei läuft. Für `bun run build` ist das nicht
+> nötig.
 
 ## Projektstruktur
 

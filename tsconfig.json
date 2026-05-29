@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "types": ["@astrojs/cloudflare"],
+    "types": ["@astrojs/cloudflare", "@types/bun"],
     "strictNullChecks": true
   }
 }

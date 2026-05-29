@@ -1,8 +1,6 @@
 /// <reference path="../.astro/types.d.ts" />
-type Runtime = import('@astrojs/cloudflare').Runtime<Env>;
+
+// Cloudflare bindings, typed for `import { env } from "cloudflare:workers"`.
 interface Env {
   DB: D1Database;
-}
-declare namespace App {
-  interface Locals extends Runtime {}
 }

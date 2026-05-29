@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { validateNewsletter } from '../../lib/validation/newsletter';
 import { generateToken } from '../../lib/token';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, locals, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
   const form = await request.formData();
   const input = {
     email: String(form.get('email') ?? '').trim().toLowerCase(),
@@ -18,7 +19,7 @@ export const POST: APIRoute = async ({ request, locals, redirect }) => {
     if (result.errors.honeypot) return redirect('/danke?type=newsletter', 303);
     return redirect('/newsletter?nlerror=1', 303);
   }
-  const db = (locals as any).runtime.env.DB as D1Database;
+  const db = env.DB;
   const now = new Date().toISOString();
   const token = generateToken();
   // Idempotent: duplicates ignored via UNIQUE(email).
