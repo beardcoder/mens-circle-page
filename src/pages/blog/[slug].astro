@@ -1,0 +1,20 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDateDe } from '../../lib/datetime';
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={post.data.title} description={post.data.excerpt} type="article">
+  <article class="container prose">
+    <p class="meta">{formatDateDe(post.data.date)} · {post.data.author}</p>
+    <h1>{post.data.title}</h1>
+    <Content />
+    <p><a href="/blog">← Alle Impulse</a></p>
+  </article>
+</BaseLayout>
+<style>.meta { color: var(--olive); font-weight: 600; }</style>

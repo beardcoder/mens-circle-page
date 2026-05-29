@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+const faqs = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(faqs.map(async (f) => ({ data: f.data, Content: (await render(f)).Content })));
+---
+<BaseLayout title="Häufige Fragen" description="Antworten zu Ablauf, Kosten, Vertraulichkeit und der Abgrenzung zu Therapie im Männerkreis.">
+  <section class="container prose">
+    <h1>Häufige Fragen</h1>
+    {rendered.map((f) => (
+      <details>
+        <summary>{f.data.question}</summary>
+        <div class="answer"><f.Content /></div>
+      </details>
+    ))}
+  </section>
+</BaseLayout>
+<style>
+  details { border-bottom: 1px solid var(--border); padding: 1rem 0; }
+  summary { cursor: pointer; font-family: var(--serif); font-size: 1.15rem; font-weight: 600; }
+  .answer { margin-top: .6rem; color: var(--ink-soft); }
+</style>

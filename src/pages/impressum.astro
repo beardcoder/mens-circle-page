@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+const s = await getEntry('settings', 'site');
+---
+<BaseLayout title="Impressum" description="Impressum des Männerkreises.">
+  <section class="container prose">
+    <h1>Impressum</h1>
+    <p><strong>Platzhalter – bitte vom Betreiber ausfüllen.</strong></p>
+    <p>{s!.data.operatorName}<br />{s!.data.operatorAddress}</p>
+    <p>Kontakt: {s!.data.contactEmail}</p>
+    <p>Angaben gemäß § 5 TMG folgen.</p>
+  </section>
+</BaseLayout>

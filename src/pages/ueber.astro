@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const phases = [
+  { t: 'Rahmen setzen & Zustimmung klären', d: 'Wir beginnen mit einem klaren Rahmen: Vertraulichkeit, Ehrlichkeit, Akzeptanz, Eigenverantwortung und Zustimmung.' },
+  { t: 'Ankommen, Atem & Check-in', d: 'Über Atem, Körperwahrnehmung und einen ehrlichen Check-in kommt jeder im Raum an.' },
+  { t: 'Aktives Zuhören & Spiegelung', d: 'Wir üben, wirklich zuzuhören: ohne vorschnelle Ratschläge, ohne Bewertung.' },
+  { t: 'Körperarbeit, Klärung & Integration', d: 'Je nach Abend arbeiten wir mit Atemarbeit, somatischer Bewegung, Grenzen oder inneren Anteilen.' },
+];
+---
+<BaseLayout title="Über den Männerkreis" description="Bodenständige Männerarbeit im Raum Straubing: weniger Konzepte, mehr echte Erfahrung in Körper, Atem und Beziehung.">
+  <section class="container prose">
+    <h1>Über den Kreis</h1>
+    <p>Ich bin Markus Sommer und leite den Männerkreis im Raum Straubing für Männer aus Niederbayern. Mein Fokus ist eine klare, bodenständige Männerarbeit: weniger Konzepte, mehr echte Erfahrung im Körper, im Atem und in Beziehung. Nicht perfekt wirken, sondern wahrhaftiger werden.</p>
+    <p>Stärke heißt für mich: klar führen, offen zuhören und verantwortlich handeln.</p>
+    <h2>Der Ablauf eines Abends</h2>
+    <ol class="phases">
+      {phases.map((p) => <li><strong>{p.t}</strong><br />{p.d}</li>)}
+    </ol>
+  </section>
+</BaseLayout>
+<style>
+  .phases { display: grid; gap: 1rem; padding-left: 1.2rem; }
+  .phases li { line-height: 1.5; }
+</style>

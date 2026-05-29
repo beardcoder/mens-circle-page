@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventRegistrationForm from '../../components/EventRegistrationForm.astro';
+import { formatDateDe, formatTimeDe, isPast } from '../../lib/datetime';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((e) => ({ params: { slug: e.id }, props: { event: e } }));
+}
+const { event } = Astro.props;
+const { Content } = await render(event);
+const closed = isPast(event.data.date) || event.data.status !== 'open' || new Date() > event.data.registrationDeadline;
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Event', name: event.data.title,
+  startDate: event.data.date.toISOString(), eventStatus: 'https://schema.org/EventScheduled',
+  location: { '@type': 'Place', name: event.data.locationName },
+  description: event.data.excerpt,
+};
+---
+<BaseLayout title={`${event.data.title} – Veranstaltung`} description={event.data.excerpt}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+  <article class="container prose">
+    <p class="meta">{formatDateDe(event.data.date)} · {formatTimeDe(event.data.date)}–{event.data.endTime} Uhr</p>
+    <h1>{event.data.title}</h1>
+    {event.data.theme && <p class="theme">Thema: {event.data.theme}</p>}
+    <dl class="facts">
+      <div><dt>Ort</dt><dd>{event.data.locationName}</dd></div>
+      <div><dt>Plätze</dt><dd>max. {event.data.capacity}</dd></div>
+      <div><dt>Beitrag</dt><dd>{event.data.donationHint}</dd></div>
+    </dl>
+    <p class="note">{event.data.addressNote}</p>
+    <p><a class="btn btn--ghost" href={`/veranstaltungen/${event.id}.ics`}>Zum Kalender hinzufügen</a></p>
+    <Content />
+    {event.data.agenda.length > 0 && (
+      <>
+        <h2>Ablauf</h2>
+        <ul>{event.data.agenda.map((a) => <li>{a}</li>)}</ul>
+      </>
+    )}
+    <h2 id="anmeldung">Anmeldung</h2>
+    {closed
+      ? <p class="closed">Für diesen Termin ist keine Anmeldung (mehr) möglich. Trag dich gern in den <a href="/newsletter">Newsletter</a> ein.</p>
+      : <EventRegistrationForm slug={event.id} />}
+  </article>
+</BaseLayout>
+<style>
+  .meta { color: var(--olive); font-weight: 600; }
+  .theme { color: var(--ink-soft); }
+  .facts { display: grid; gap: .6rem; grid-template-columns: 1fr; border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; background: var(--surface); }
+  @media (min-width: 32rem) { .facts { grid-template-columns: repeat(3, 1fr); } }
+  .facts dt { font-weight: 600; font-size: .85rem; color: var(--ink-soft); }
+  .facts dd { margin: 0; }
+  .note { font-style: italic; color: var(--ink-soft); }
+  .closed { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+</style>
