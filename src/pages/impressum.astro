@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { settings } from '../lib/settings';
+---
+<BaseLayout title="Impressum" description="Impressum des Männerkreises.">
+  <section class="container prose">
+    <h1>Impressum</h1>
+    <p><strong>Platzhalter – bitte vom Betreiber ausfüllen.</strong></p>
+    <p>{settings.operatorName}<br />{settings.operatorAddress}</p>
+    <p>Kontakt: {settings.contactEmail}</p>
+    <p>Angaben gemäß § 5 TMG folgen.</p>
+  </section>
+</BaseLayout>

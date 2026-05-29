@@ -1,0 +1,34 @@
+---
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const error = Astro.url.searchParams.get('nlerror');
+---
+<form method="POST" action="/api/newsletter" class={compact ? 'nl nl--compact' : 'nl'}>
+  <p class="hp" aria-hidden="true">
+    <label>Bitte leer lassen<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </p>
+  <div class="field">
+    <label for="nl-email">E-Mail*</label>
+    <input id="nl-email" type="email" name="email" required autocomplete="email" />
+  </div>
+  <div class="field">
+    <label for="nl-first">Vorname (optional)</label>
+    <input id="nl-first" type="text" name="firstName" autocomplete="given-name" />
+  </div>
+  <label class="consent">
+    <input type="checkbox" name="privacyConsent" value="yes" required />
+    <span>Ich stimme der <a href="/datenschutz">Datenschutzerklärung</a> zu.*</span>
+  </label>
+  {error && <p class="err" role="alert">Bitte prüfe deine Eingaben.</p>}
+  <button class="btn" type="submit">Eintragen</button>
+  <p class="note">Kein Spam. Abmeldung jederzeit möglich.</p>
+</form>
+<style>
+  .nl { display: grid; gap: .8rem; max-width: 32rem; }
+  .field { display: grid; gap: .3rem; }
+  input[type="email"], input[type="text"] { padding: .6rem .7rem; border: 1px solid var(--border); border-radius: var(--radius); font: inherit; background: var(--surface); }
+  .consent { display: flex; gap: .5rem; align-items: flex-start; font-size: .95rem; }
+  .hp { position: absolute; left: -9999px; height: 0; overflow: hidden; }
+  .err { color: var(--clay-dark); }
+  .note { font-size: .85rem; color: var(--ink-soft); margin: 0; }
+</style>

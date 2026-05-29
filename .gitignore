@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.dev.vars
+*.local
+.env
+
+# Von `wrangler types` generiert (lokal/CI via `bun run cf-typegen`)
+worker-configuration.d.ts

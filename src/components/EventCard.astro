@@ -1,0 +1,21 @@
+---
+import { formatDateDe, formatTimeDe, isPast } from '../lib/datetime';
+import type { CollectionEntry } from 'astro:content';
+interface Props { event: CollectionEntry<'events'> }
+const { event } = Astro.props;
+const past = isPast(event.data.date) || event.data.status !== 'open';
+---
+<article class="card reveal">
+  <p class="meta">{formatDateDe(event.data.date)} · {formatTimeDe(event.data.date)} Uhr</p>
+  <h3><a href={`/veranstaltungen/${event.id}`}>{event.data.title}</a></h3>
+  <p>{event.data.excerpt}</p>
+  <p class="loc">{event.data.locationName}</p>
+  <p class="status">{past ? 'Anmeldung geschlossen' : 'Anmeldung möglich'}</p>
+</article>
+<style>
+  .card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; background: var(--surface); transition: transform .2s ease, box-shadow .2s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,32,29,.06); }
+  .meta { color: var(--olive); font-weight: 600; margin: 0 0 .3rem; font-size: .9rem; }
+  h3 { margin: 0 0 .4rem; } h3 a { text-decoration: none; color: var(--ink); }
+  .loc { color: var(--ink-soft); font-size: .9rem; } .status { font-size: .85rem; font-weight: 600; }
+</style>

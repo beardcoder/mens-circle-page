@@ -1,0 +1,8 @@
+name = "maennerkreis"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "maennerkreis-db"
+database_id = "008456d9-3857-496b-b21a-aa7f88087b16"
+migrations_dir = "migrations"

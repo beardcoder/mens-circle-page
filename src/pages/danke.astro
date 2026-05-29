@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const type = Astro.url.searchParams.get('type');
+const msg = type === 'event'
+  ? 'Danke für deine Anmeldung. Du erhältst die Details und die genaue Adresse per E-Mail.'
+  : 'Danke für deine Eintragung. Wir melden uns mit kommenden Terminen.';
+---
+<BaseLayout title="Danke" description="Vielen Dank.">
+  <section class="container prose">
+    <h1>Danke</h1>
+    <p>{msg}</p>
+    <p><a class="btn" href="/">Zur Startseite</a></p>
+  </section>
+</BaseLayout>

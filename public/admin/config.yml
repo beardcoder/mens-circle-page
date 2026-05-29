@@ -1,0 +1,75 @@
+backend:
+  name: github
+  repo: OWNER/REPO   # TODO: auf dein GitHub-Repo setzen
+  branch: main
+local_backend: true
+media_folder: "public/uploads"
+public_folder: "/uploads"
+collections:
+  - name: events
+    label: Veranstaltungen
+    folder: "src/content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    fields:
+      - { name: title, label: Titel, widget: string }
+      - { name: date, label: Datum/Beginn, widget: datetime }
+      - { name: endTime, label: Ende, widget: datetime }
+      - { name: locationName, label: Ort, widget: string }
+      - { name: addressNote, label: Adress-Hinweis, widget: string, required: false }
+      - { name: capacity, label: Kapazität, widget: number, value_type: int }
+      - { name: donationHint, label: Beitrag, widget: string, required: false }
+      - { name: theme, label: Thema, widget: string, required: false }
+      - { name: status, label: Status, widget: select, options: ["open", "closed", "cancelled"], default: "open" }
+      - { name: registrationDeadline, label: Anmeldeschluss, widget: datetime }
+      - { name: excerpt, label: Kurztext, widget: text }
+      - { name: agenda, label: Ablauf, widget: list, field: { name: item, label: Punkt, widget: string } }
+      - { name: body, label: Beschreibung, widget: markdown }
+  - name: blog
+    label: Impulse
+    folder: "src/content/blog"
+    create: true
+    extension: md
+    fields:
+      - { name: title, label: Titel, widget: string }
+      - { name: date, label: Datum, widget: datetime }
+      - { name: excerpt, label: Kurztext, widget: text }
+      - { name: author, label: Autor, widget: string, default: "Markus Sommer" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: draft, label: Entwurf, widget: boolean, default: false }
+      - { name: body, label: Text, widget: markdown }
+  - name: faq
+    label: FAQ
+    folder: "src/content/faq"
+    create: true
+    extension: md
+    fields:
+      - { name: question, label: Frage, widget: string }
+      - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 0 }
+      - { name: body, label: Antwort, widget: markdown }
+  - name: testimonials
+    label: Testimonials
+    folder: "src/content/testimonials"
+    create: true
+    extension: md
+    fields:
+      - { name: author, label: Name, widget: string }
+      - { name: context, label: Kontext, widget: string, required: false }
+      - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 0 }
+      - { name: body, label: Zitat, widget: markdown }
+  - name: settings
+    label: Einstellungen
+    files:
+      - name: site
+        label: Website-Einstellungen
+        file: "src/content/settings/site.json"
+        fields:
+          - { name: id, label: ID, widget: hidden, default: "site" }
+          - { name: siteTitle, label: Titel, widget: string }
+          - { name: tagline, label: Claim, widget: string }
+          - { name: region, label: Region, widget: string }
+          - { name: contactEmail, label: Kontakt-E-Mail, widget: string }
+          - { name: whatsappUrl, label: WhatsApp-Link, widget: string, required: false }
+          - { name: operatorName, label: Betreiber-Name, widget: string }
+          - { name: operatorAddress, label: Betreiber-Adresse, widget: string }

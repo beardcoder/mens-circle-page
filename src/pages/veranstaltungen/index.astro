@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventCard from '../../components/EventCard.astro';
+import { isPast } from '../../lib/datetime';
+const all = (await getCollection('events')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const upcoming = all.filter((e) => !isPast(e.data.date) && e.data.status === 'open').sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const past = all.filter((e) => isPast(e.data.date) || e.data.status !== 'open');
+---
+<BaseLayout title="Veranstaltungen" description="Kommende und vergangene Männerkreis-Abende im Raum Straubing und Geiselhöring.">
+  <section class="container">
+    <h1>Veranstaltungen</h1>
+    <h2>Kommende Termine</h2>
+    {upcoming.length === 0 ? <p>Aktuell keine offenen Termine. Trag dich in den <a href="/newsletter">Newsletter</a> ein.</p> : (
+      <div class="cards">{upcoming.map((e) => <EventCard event={e} />)}</div>
+    )}
+    {past.length > 0 && (
+      <>
+        <h2>Vergangene Termine</h2>
+        <div class="cards dim">{past.map((e) => <EventCard event={e} />)}</div>
+      </>
+    )}
+  </section>
+</BaseLayout>
+<style>
+  .cards { display: grid; gap: 1.2rem; grid-template-columns: 1fr; margin-bottom: 2rem; }
+  @media (min-width: 48rem) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  .dim { opacity: .7; }
+</style>
