@@ -15,7 +15,7 @@ collections:
     fields:
       - { name: title, label: Titel, widget: string }
       - { name: date, label: Datum/Beginn, widget: datetime }
-      - { name: endTime, label: Ende (HH:MM), widget: string }
+      - { name: endTime, label: Ende, widget: datetime }
       - { name: locationName, label: Ort, widget: string }
       - { name: addressNote, label: Adress-Hinweis, widget: string, required: false }
       - { name: capacity, label: Kapazität, widget: number, value_type: int }

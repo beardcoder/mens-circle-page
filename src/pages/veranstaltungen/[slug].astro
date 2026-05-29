@@ -23,7 +23,7 @@ const jsonLd = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </Fragment>
   <article class="container prose">
-    <p class="meta">{formatDateDe(event.data.date)} · {formatTimeDe(event.data.date)}–{event.data.endTime} Uhr</p>
+    <p class="meta">{formatDateDe(event.data.date)} · {formatTimeDe(event.data.date)}–{formatTimeDe(event.data.endTime)} Uhr</p>
     <h1>{event.data.title}</h1>
     {event.data.theme && <p class="theme">Thema: {event.data.theme}</p>}
     <dl class="facts">

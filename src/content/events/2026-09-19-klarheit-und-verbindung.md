@@ -1,7 +1,7 @@
 ---
 title: "Männerkreis-Abend: Klarheit & Verbindung"
 date: 2026-09-19T19:30:00+02:00
-endTime: "22:00"
+endTime: 2026-09-19T22:00:00+02:00
 locationName: "Raum am Wirtsberg, Geiselhöring"
 capacity: 8
 theme: "Klarheit & Verbindung"

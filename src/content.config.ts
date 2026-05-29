@@ -6,7 +6,7 @@ const events = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     date: z.coerce.date(),
-    endTime: z.string(),
+    endTime: z.coerce.date(),
     locationName: z.string(),
     addressNote: z.string().default('Die genaue Adresse erhältst du nach der Anmeldung.'),
     capacity: z.number().int().positive(),

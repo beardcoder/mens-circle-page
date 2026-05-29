@@ -24,6 +24,9 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   if (!event) return redirect(`/veranstaltungen?regerror=1`, 303);
 
   const db = env.DB;
+  // Capacity is checked read-then-insert. A race on the last seat is possible
+  // but acceptable at this scale (small circles, ~8 seats); the facilitator
+  // reviews registrations manually. Tighten with a conditional INSERT if needed.
   const countRow = await db.prepare(
     'SELECT COUNT(*) AS c FROM event_registrations WHERE event_slug = ?'
   ).bind(slug).first<{ c: number }>();
