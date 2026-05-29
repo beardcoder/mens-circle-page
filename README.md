@@ -76,10 +76,28 @@ bunx @sveltia/cms-proxy-server
 # local_backend: true ist in public/admin/config.yml aktiv.
 ```
 
-**Für die Produktion:** in `public/admin/config.yml` `repo: OWNER/REPO` auf das
-eigene GitHub-Repo setzen und GitHub-OAuth beim Auth-Provider hinterlegen
-(z. B. eine kleine OAuth-Function). Die Zugangsdaten gehören in `.env`
-(siehe `.env.example`), nicht ins Repo.
+**Für die Produktion (GitHub-OAuth):** Sveltia braucht einen separaten
+OAuth-Worker, weil der Client Secret nicht im Browser/Repo liegen darf.
+
+1. OAuth-Worker deployen:
+   ```bash
+   git clone https://github.com/sveltia/sveltia-cms-auth
+   cd sveltia-cms-auth && bunx wrangler deploy
+   # ergibt z.B. https://sveltia-cms-auth.DEIN-SUBDOMAIN.workers.dev
+   ```
+2. GitHub OAuth App anlegen (<https://github.com/settings/applications/new>),
+   **Authorization callback URL** = `<WORKER_URL>/callback`. Client ID + Secret
+   notieren.
+3. Secrets **am Worker** hinterlegen (nicht in der Pages-App, nicht im Repo):
+   ```bash
+   bunx wrangler secret put GITHUB_CLIENT_ID
+   bunx wrangler secret put GITHUB_CLIENT_SECRET
+   # optional: bunx wrangler secret put ALLOWED_DOMAINS   # z.B. maennerkreis.de
+   ```
+4. In `public/admin/config.yml` `repo: OWNER/REPO` setzen und
+   `base_url: <WORKER_URL>` ergänzen.
+
+Die Pages-App selbst erhält **keine** OAuth-Variablen.
 
 ## Cloudflare D1 einrichten
 

@@ -2,6 +2,10 @@ backend:
   name: github
   repo: OWNER/REPO   # TODO: auf dein GitHub-Repo setzen
   branch: main
+  # OAuth läuft über einen separaten Cloudflare-Worker (sveltia-cms-auth).
+  # Client ID/Secret werden DORT als Worker-Secrets hinterlegt, nicht hier.
+  # base_url auf die Worker-URL setzen, z.B.:
+  # base_url: https://sveltia-cms-auth.DEIN-SUBDOMAIN.workers.dev
 local_backend: true
 media_folder: "public/uploads"
 public_folder: "/uploads"
